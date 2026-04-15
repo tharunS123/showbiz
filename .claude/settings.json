@@ -1,0 +1,46 @@
+{
+  "$schema": "https://claude.ai/schemas/settings.json",
+
+  "permissions": {
+    "allow": [
+      "Bash(pnpm *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(prisma *)",
+      "Bash(pnpm prisma *)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git checkout *)",
+      "Bash(git branch *)",
+      "Bash(grep *)",
+      "Bash(find *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(echo *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(touch *)",
+      "Bash(curl -s https://api.themoviedb.org/*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(sudo *)",
+      "Bash(git push --force)",
+      "Bash(git push origin main)",
+      "Bash(git push origin master)",
+      "Bash(DROP TABLE *)",
+      "Bash(curl * TMDB_API_KEY *)",
+      "Bash(printenv *)",
+      "Bash(env)"
+    ]
+  },
+
+  "env": {
+    "RECS_MODE": "rules"
+  }
+}
