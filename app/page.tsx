@@ -20,23 +20,26 @@ export default async function HomePage() {
       {hero && (
         <div className="relative">
           <Backdrop path={hero.backdropPath} alt={hero.title} />
-          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 pt-16">
             <div className="container mx-auto">
               <p className="text-xs uppercase tracking-wider text-primary font-semibold mb-2">
                 Trending This Week
               </p>
-              <h1 className="text-3xl md:text-5xl font-bold max-w-xl mb-3">
+              <h1 className="text-4xl md:text-6xl font-bold text-white max-w-xl mb-4 drop-shadow-lg">
                 {hero.title}
               </h1>
-              <p className="text-sm text-muted-foreground max-w-lg line-clamp-2 mb-4">
+              <p className="text-sm text-muted-foreground/90 max-w-lg line-clamp-3 mb-6">
                 {hero.overview}
               </p>
-              <div className="flex gap-3">
-                <Link href={`/${hero.mediaType}/${hero.externalId}`}>
-                  <Button>View Details</Button>
+              <div className="flex gap-4 flex-wrap">
+                <Link href={`/${hero.mediaType}/${hero.externalId}`} className="flex items-center gap-3 px-6 py-3">
+                  <Button className="w-auto">
+                    View Details
+                  </Button>
                 </Link>
-                <Link href="/for-you">
-                  <Button variant="outline" className="gap-1.5">
+                <Link href="/for-you" className="flex items-center gap-3 px-6 py-3 border border-primary/50 hover:border-primary/75 transition-all duration-300">
+                  <Button variant="outline" className="w-auto gap-1.5">
                     <Sparkles className="w-4 h-4" />
                     Get Recommendations
                   </Button>
@@ -46,12 +49,35 @@ export default async function HomePage() {
           </div>
         </div>
       )}
-
-      <div className="container mx-auto px-4 py-8 space-y-10">
-        <TitleRow label="Trending" titles={trending} />
-        <TitleRow label="Popular Movies" titles={popularMovies} />
-        <TitleRow label="Popular TV Shows" titles={popularTv} />
-        <TitleRow label="Top Rated" titles={topRated} />
+      
+      <div className="container mx-auto px-4 py-12 space-y-16">
+        <section className="space-y-8">
+          <h2 className="text-2xl font-bold text-center md:text-left">
+            Trending This Week
+          </h2>
+          <TitleRow label="" titles={trending} className="overflow-x-auto scrollbar-hide" />
+        </section>
+        
+        <section className="space-y-8">
+          <h2 className="text-2xl font-bold text-center md:text-left">
+            Popular Movies
+          </h2>
+          <TitleRow label="" titles={popularMovies} className="overflow-x-auto scrollbar-hide" />
+        </section>
+        
+        <section className="space-y-8">
+          <h2 className="text-2xl font-bold text-center md:text-left">
+            Popular TV Shows
+          </h2>
+          <TitleRow label="" titles={popularTv} className="overflow-x-auto scrollbar-hide" />
+        </section>
+        
+        <section className="space-y-8">
+          <h2 className="text-2xl font-bold text-center md:text-left">
+            Top Rated Movies
+          </h2>
+          <TitleRow label="" titles={topRated} className="overflow-x-auto scrollbar-hide" />
+        </section>
       </div>
     </div>
   );
