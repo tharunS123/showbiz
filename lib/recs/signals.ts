@@ -7,7 +7,7 @@ export async function buildUserSignals(userId: string): Promise<UserSignals> {
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
-  const [favResult, seenIds, interactions, recentFavResult, ratedResult] = await Promise.all([
+   const [favResult, seenIds, , recentFavResult, ratedResult] = await Promise.all([
     supabase
       .from("list_items")
       .select("external_id, media_type")
@@ -32,18 +32,13 @@ export async function buildUserSignals(userId: string): Promise<UserSignals> {
 
   const favorites = favResult.data ?? [];
   const recentFavs = recentFavResult.data ?? [];
-  const ratedItems: RatedItem[] = (ratedResult.data ?? []).map((r) => ({
-    externalId: r.external_id,
-    mediaType: r.media_type as "movie" | "tv",
-    rating: r.rating as number,
-  }));
+   const ratedItems: RatedItem[] = (ratedResult.data ?? []).map((r) => ({
+     externalId: r.external_id,
+     mediaType: r.media_type as "movie" | "tv",
+     rating: r.rating as number,
+   }));
 
-  const viewedIds = interactions
-    .filter((e) => e.event_type === "view_title" && e.external_id)
-    .map((e) => e.external_id!)
-    .slice(0, 20);
-
-  const genreCounts = new Map<number, number>();
+   const genreCounts = new Map<number, number>();
   const personCounts = new Map<string, number>();
 
   for (const fav of favorites) {

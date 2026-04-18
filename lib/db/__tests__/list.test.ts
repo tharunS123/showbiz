@@ -6,15 +6,15 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 // chains work. The terminal `.then` resolves to whatever `resolvedValue`
 // was passed in, which lets the `await` in the source module get data.
 
-function createMockChain(resolvedValue: { data: any; error: any }) {
+function createMockChain(resolvedValue: { data: unknown; error: unknown }) {
   const fns: Record<string, ReturnType<typeof vi.fn>> = {};
 
-  const chain: any = new Proxy(
+  const chain = new Proxy<Record<string, ReturnType<typeof vi.fn>>>(
     {},
     {
       get(_target, prop: string) {
-        if (prop === "then") {
-          return (resolve: any) => resolve(resolvedValue);
+if (prop === "then") {
+           return (resolve: (value: unknown) => void) => resolve(resolvedValue);
         }
         if (prop === "__fns") return fns;
         if (!fns[prop]) {
